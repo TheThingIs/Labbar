@@ -1,7 +1,7 @@
 package Car;
 import java.awt.*;
 
-public class Volvo240 extends Car {
+public class Volvo240 extends Vehicle {
 
 	public final static double trimFactor = 1.25;
 

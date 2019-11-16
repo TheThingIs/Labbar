@@ -1,4 +1,5 @@
 package Car;
+
 import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ public class MoveTest {
 
 	Volvo240 volvo = new Volvo240();
 	Saab95 saab = new Saab95();
+	Scania scania = new Scania();
 
 	/**
 	 * Tests the gas and brakes
@@ -83,13 +85,37 @@ public class MoveTest {
 	}
 
 	/**
+	 * Checks Scania and its flatbed
+	 */
+	@Test
+	public void scaniaTest() {
+		scania.brake(1);
+		assertEquals(0, scania.getAngleFlatbed(), 0);
+		scania.increaseAngle(50);
+		assertEquals(50, scania.getAngleFlatbed(), 0);
+		scania.decreaseAngle(30);
+		assertEquals(20, scania.getAngleFlatbed(), 0);
+		scania.increaseAngle(51);
+		assertEquals(20, scania.getAngleFlatbed(), 0);
+		scania.decreaseAngle(21);
+		assertEquals(20, scania.getAngleFlatbed(), 0);
+		scania.gas(1);
+		assertEquals(0, scania.getCurrentSpeed(), 0);
+		scania.decreaseAngle(20);
+		assertEquals(0, scania.getAngleFlatbed(), 0);
+		scania.gas(1);
+		assertEquals(0.7, scania.getCurrentSpeed(), 0.000001);
+		
+	}
+
+	/**
 	 * Starts all cars
 	 */
 	@BeforeEach
 	public void resetStartAllCars() {
 		volvo.startEngine();
 		saab.startEngine();
-
+		scania.startEngine();
 	}
 
 }
