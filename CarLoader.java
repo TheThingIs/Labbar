@@ -2,77 +2,100 @@ package Car;
 
 import java.util.ArrayList;
 
-public class CarLoader {
+public class CarLoader<T extends Car> implements IFlatbedAngle, ILoadCar<T>, ILoadGarage<T>, ILoadCarTruck, ILoadCarFerry {
 
-	private ArrayList<Vehicle> carLoaded = new ArrayList<Vehicle>();
+	private ArrayList<T> carLoaded;
 	private int carMaxCapacity;
 	private Flatbed flatbed;
 
 	/**
-	 * Describes how the car loader works
+	 * Describes how the car loader works for trucks
 	 * 
 	 * @param maxCapacity the max car capacity on the car loader
 	 */
 	public CarLoader(int maxCapacity) {
 		flatbed = new Flatbed();
+		carLoaded = new ArrayList<T>();
 		carMaxCapacity = maxCapacity;
 	}
 
 	/**
+	 * Describes how the car loader works for garages
 	 * 
-	 * @return The flatbed in the car loader
+	 * @param maxCapacity the max car capacity on the car loader
+	 * @param modelName   Specifiecs the specialities of the garage
 	 */
-	public Flatbed getFlatbed() {
-		return flatbed;
+	public CarLoader(int maxCapacity, CarGarage<T> t) {
+		carMaxCapacity = maxCapacity;
+		carLoaded = new ArrayList<T>();
 	}
 
-	/**
-	 * Load a specified car onto the CarLoader
-	 * 
-	 * @param o            The Current Vehicle
-	 * @param c            A car to be loaded
-	 * @param currentSpeed The currentSpeed of the vehicle
-	 */
-	protected void loadCar(Vehicle o, Vehicle c) {
-		if (c.getPositionX() - o.getPositionX() <= 4 && c.getPositionY() - o.getPositionY() <= 4) {
-			if (o.getCurrentSpeed() == 0 && carLoaded.size() < carMaxCapacity && flatbed.getAngleFlatbed() == 0) {
-				carLoaded.add(c);
-			}
+	@Override
+	public void increaseAngle(double amount) {
+		flatbed.increaseAngle(70);
+
+	}
+
+	@Override
+	public void decreaseAngle(double amount) {
+		flatbed.decreaseAngle(70);
+
+	}
+
+	@Override
+	public double getAngleFlatbed() {
+		return flatbed.getAngleFlatbed();
+	}
+
+	@Override
+	public void loadCar(T c) {
+		if (carLoaded.size() < carMaxCapacity && flatbed.getAngleFlatbed() == 70) {
+			c.isOnLoader();
+			carLoaded.add(c);
 		}
+
 	}
 
-	/**
-	 * Unloads the last car of the transport
-	 */
-	protected void unloadLastCar(double currentSpeed) {
-		if (currentSpeed == 0 && flatbed.getAngleFlatbed() == 0) {
-			carLoaded.remove(carLoaded.size() - 1);
-		}
-	}
-
-	/**
-	 * Unloads the first car of the transport
-	 */
-	protected void unloadFirstCar(double currentSpeed) {
-		if (currentSpeed == 0 && flatbed.getAngleFlatbed() == 0) {
+	@Override
+	public void unloadFirstCar() {
+		if (flatbed.getAngleFlatbed() == 70) {
+			carLoaded.get(0).isNotOnLoader();
 			carLoaded.remove(0);
 		}
 	}
 
-	/**
-	 * 
-	 * @return an ArrayList of all cars of the car transport
-	 */
-	protected ArrayList<Vehicle> getposition() {
-		return carLoaded;
+	@Override
+	public void unloadLastCar() {
+		if (flatbed.getAngleFlatbed() == 70) {
+			carLoaded.get(carLoaded.size() - 1).isNotOnLoader();
+			carLoaded.remove(carLoaded.size() - 1);
+		}
+
+	}
+
+	@Override
+	public void returnCar(T c) {
+		c.isNotOnLoader();
+		carLoaded.remove(c);
+	}
+
+	@Override
+	public void depositCar(T c) {
+		c.isOnLoader();
+		carLoaded.add(c);
 	}
 
 	/**
+	 * Moves all cars when the vehicle is moving
 	 * 
-	 * @return a car of the position on the loader
+	 * @param positionX Position in x to move the car
+	 * @param positionY Position in y to move the car
 	 */
-	protected Vehicle getPositionOfCar(int i) {
-		return carLoaded.get(i);
+	protected void moveAll(double positionX, double positionY) {
+		for (T c : carLoaded) {
+			c.updatePosition(positionX, positionY);
+		}
+
 	}
 
 }

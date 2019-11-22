@@ -1,7 +1,8 @@
 package Car;
+
 import java.awt.*;
 
-public class Saab95 extends Vehicle {
+public class Saab95 extends Car {
 
 	private boolean turboOn; // Check whenever the turbo is on
 
@@ -29,11 +30,14 @@ public class Saab95 extends Vehicle {
 
 	@Override
 	public double speedFactor() {
-		double turbo = 1;
-		if (turboOn) {
-			turbo = 1.3;
+		if (!CheckIfOnLoader()) {
+			double turbo = 1;
+			if (turboOn) {
+				turbo = 1.3;
+			}
+			return getEnginePower() * 0.01 * turbo;
 		}
-		return getEnginePower() * 0.01 * turbo;
+		return 0;
 	}
 
 }

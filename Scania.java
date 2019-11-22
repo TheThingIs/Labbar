@@ -2,7 +2,7 @@ package Car;
 
 import java.awt.*;
 
-public class Scania extends Vehicle implements FlatbedAngle {
+public class Scania extends Vehicle implements IFlatbedAngle {
 
 	private Flatbed flatbed;
 

@@ -1,6 +1,6 @@
 package Car;
 
-public class Flatbed implements FlatbedAngle {
+public class Flatbed implements IFlatbedAngle {
 
 	private double angle;
 

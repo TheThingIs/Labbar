@@ -2,16 +2,16 @@ package Car;
 
 import java.awt.*;
 
-public abstract class Vehicle implements Movable, Speed {
+public abstract class Vehicle implements Movable, ISpeed {
 
 	private double angle; // Angle the car is facing
 	private double positionX; // Position in Y-direction
 	private double positionY; // Position in X-direction
-	private int nrDoors; // Number of doors on the car
-	private double enginePower; // Engine power of the car
+	private final int nrDoors; // Number of doors on the car
+	private final double enginePower; // Engine power of the car
 	private double currentSpeed; // The current speed of the car
 	private Color color; // Color of the car
-	private String modelName; // The car model name
+	private final String modelName; // The car model name
 
 	/**
 	 * Representation of a car
@@ -119,7 +119,8 @@ public abstract class Vehicle implements Movable, Speed {
 	 * 
 	 * @return Set position X-coordinate of the car
 	 */
-	private void setPositionX(double positionX) {
+
+	protected void setPositionX(double positionX) {
 		this.positionX = positionX;
 	}
 
@@ -135,7 +136,7 @@ public abstract class Vehicle implements Movable, Speed {
 	 * 
 	 * @return Set position Y-coordinate of the car
 	 */
-	private void setPositionY(double positionY) {
+	protected void setPositionY(double positionY) {
 		this.positionY = positionY;
 	}
 
@@ -182,8 +183,8 @@ public abstract class Vehicle implements Movable, Speed {
 
 	@Override
 	public void move() {
-		this.setPositionX(this.getPositionX() + Math.cos(Math.toRadians(this.getAngle())) * this.getCurrentSpeed());
-		this.setPositionY(this.getPositionY() + Math.sin(Math.toRadians(this.getAngle())) * this.getCurrentSpeed());
+		this.positionX = this.getPositionX() + Math.cos(Math.toRadians(this.getAngle())) * this.getCurrentSpeed();
+		this.positionY = this.getPositionY() + Math.sin(Math.toRadians(this.getAngle())) * this.getCurrentSpeed();
 	}
 
 	@Override
