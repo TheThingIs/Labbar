@@ -1,4 +1,4 @@
-package Car;
+package model;
 
 import java.awt.*;
 
@@ -10,7 +10,7 @@ public class Volvo240 extends Car {
 	 * Representation of a Volvo240
 	 */
 	public Volvo240() {
-		super(4, 100, Color.black, "Volvo240");
+		super(4, 100, Color.black, "Volvo240", 100, 60);
 	}
 
 	@Override

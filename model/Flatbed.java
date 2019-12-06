@@ -1,4 +1,4 @@
-package Car;
+package model;
 
 public class Flatbed implements IFlatbedAngle {
 
@@ -8,12 +8,14 @@ public class Flatbed implements IFlatbedAngle {
 		angle = 0;
 	}
 
+	@Override
 	public void increaseAngle(double amount) {
 		if (angle + amount <= 70 && amount > 0) {
 			angle += amount;
 		}
 	}
 
+	@Override
 	public void decreaseAngle(double amount) {
 		if (angle - amount >= 0 && amount > 0) {
 			angle -= amount;

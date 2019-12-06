@@ -1,4 +1,4 @@
-package Car;
+package model;
 
 import java.awt.*;
 
@@ -8,6 +8,10 @@ public abstract class Car extends Vehicle {
 
 	public Car(int nrDoors, double enginePower, Color color, String modelName) {
 		super(nrDoors, enginePower, color, modelName);
+	}
+
+	public Car(int nrDoors, double enginePower, Color color, String modelName, int imageWidth, int imageHeight) {
+		super(nrDoors, enginePower, color, modelName, imageWidth, imageHeight);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package Car;
+package model;
 
 public class CarGarage<T extends Car> implements ILoadGarage<T> {
 

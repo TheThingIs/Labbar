@@ -1,4 +1,4 @@
-package Car;
+package model;
 
 import java.awt.Color;
 

@@ -1,4 +1,4 @@
-package Car;
+package model;
 
 import java.awt.*;
 
@@ -10,7 +10,7 @@ public class Scania extends Vehicle implements IFlatbedAngle {
 	 * Creates a Scania
 	 */
 	public Scania() {
-		super(2, 70, Color.WHITE, "Scania");
+		super(2, 70, Color.WHITE, "Scania", 100, 60);
 		flatbed = new Flatbed();
 	}
 

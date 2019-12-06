@@ -1,8 +1,8 @@
-package Car;
+package model;
 
 import java.awt.*;
 
-public class Saab95 extends Car {
+public class Saab95 extends Car implements ITurbo {
 
 	private boolean turboOn; // Check whenever the turbo is on
 
@@ -10,21 +10,7 @@ public class Saab95 extends Car {
 	 * Representation of a Saab95
 	 */
 	public Saab95() {
-		super(2, 125, Color.red, "Saab95");
-		turboOn = false;
-	}
-
-	/**
-	 * Powers on the turbo
-	 */
-	public void setTurboOn() {
-		turboOn = true;
-	}
-
-	/**
-	 * Powers off the turbo
-	 */
-	public void setTurboOff() {
+		super(2, 125, Color.red, "Saab95", 100, 60);
 		turboOn = false;
 	}
 
@@ -38,6 +24,18 @@ public class Saab95 extends Car {
 			return getEnginePower() * 0.01 * turbo;
 		}
 		return 0;
+	}
+
+	@Override
+	public void setTurboOn() {
+		turboOn = true;
+
+	}
+
+	@Override
+	public void setTurboOff() {
+		turboOn = false;
+
 	}
 
 }

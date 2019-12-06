@@ -1,4 +1,4 @@
-package Car;
+package model;
 
 public interface ILoadGarage<T extends Car> {
 
