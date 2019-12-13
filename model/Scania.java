@@ -9,7 +9,7 @@ public class Scania extends Vehicle implements IFlatbedAngle {
 	/**
 	 * Creates a Scania
 	 */
-	public Scania() {
+	protected Scania() {
 		super(2, 70, Color.WHITE, "Scania", 100, 60);
 		flatbed = new Flatbed();
 	}

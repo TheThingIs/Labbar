@@ -2,9 +2,12 @@ package model;
 
 public class Flatbed implements IFlatbedAngle {
 
-	private double angle;
-
-	public Flatbed() {
+	private double angle; // the angle of the Liftbed
+	
+	/**
+	 * Creates a flatbed
+	 */
+	protected Flatbed() {
 		angle = 0;
 	}
 

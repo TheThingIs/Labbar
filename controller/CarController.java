@@ -1,10 +1,8 @@
 package controller;
 
-import model.IFlatbedAngle;
-import model.ITurbo;
-import model.Vehicle;
-
-import java.util.ArrayList;
+import model.Factory;
+import model.ImmutableVehicle;
+import model.VehicleUniverse;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -15,14 +13,15 @@ import java.util.ArrayList;
 public class CarController {
 	// member fields:
 
+	private String[] models = { "Volvo240", "Saab95", "Scania", "Man", "Stena" };
+
 	// A list of cars, modify if needed
-	private static ArrayList<Vehicle> vehicles = new ArrayList<>();
 	// methods:
 
 	// Calls the gas method for each car once
 	public void gas(int amount) {
 		double gas = ((double) amount) / 100;
-		for (Vehicle v : vehicles) {
+		for (ImmutableVehicle v : VehicleUniverse.getImmutableVehicles()) {
 			v.gas(gas);
 		}
 	}
@@ -30,66 +29,75 @@ public class CarController {
 	// Calls the gas method for each car once
 	public void brake(int amount) {
 		double brake = ((double) amount) / 100;
-		for (Vehicle v : vehicles) {
+		for (ImmutableVehicle v : VehicleUniverse.getImmutableVehicles()) {
 			v.brake(brake);
 		}
 	}
 
-	public static ArrayList<Vehicle> getVehicles() {
-		return vehicles;
-	}
-
-	public static void addVehicle(Vehicle v) {
-		vehicles.add(v);
-	}
-
 	public void turboOn() {
-		for (Vehicle v : vehicles) {
-			if (v instanceof ITurbo) {
-				((ITurbo) v).setTurboOn();
-			}
+		for (ImmutableVehicle v : VehicleUniverse.getImmutableVehicles()) {
+			v.setTurboOn();
 		}
 
 	}
 
 	public void turboOff() {
-		for (Vehicle v : vehicles) {
-			if (v instanceof ITurbo) {
-				((ITurbo) v).setTurboOff();
-			}
+		for (ImmutableVehicle v : VehicleUniverse.getImmutableVehicles()) {
+			v.setTurboOff();
 		}
 
 	}
 
 	public void liftBed(int amount) {
-		for (Vehicle v : vehicles) {
-			if (v instanceof IFlatbedAngle) {
-				((IFlatbedAngle) v).increaseAngle(amount);
-			}
+		for (ImmutableVehicle v : VehicleUniverse.getImmutableVehicles()) {
+			v.increaseAngle(amount);
 		}
 
 	}
 
 	public void lowerBed(int amount) {
-		for (Vehicle v : vehicles) {
-			if (v instanceof IFlatbedAngle) {
-				((IFlatbedAngle) v).decreaseAngle(amount);
-			}
+		for (ImmutableVehicle v : VehicleUniverse.getImmutableVehicles()) {
+			v.decreaseAngle(amount);
 		}
 
 	}
 
 	public void start() {
-		for (Vehicle v : vehicles) {
+		for (ImmutableVehicle v : VehicleUniverse.getImmutableVehicles()) {
 			v.startEngine();
 		}
 
 	}
 
 	public void stop() {
-		for (Vehicle v : vehicles) {
+		for (ImmutableVehicle v : VehicleUniverse.getImmutableVehicles()) {
 			v.stopEngine();
 		}
+	}
 
+	public void addVehicle(String s) {
+		switch (s) {
+		case ("Volvo240"):
+			Factory.newVolvo240();
+			break;
+		case ("Saab95"):
+			Factory.newSaab95();
+			break;
+		case ("Scania"):
+			Factory.newScania();
+			break;
+		case ("Man"):
+			Factory.newMan();
+			break;
+		case ("Stena"):
+			Factory.newStena();
+			break;
+		default:
+			addVehicle(models[(int) (Math.random() * 5)]);
+		}
+	}
+
+	public void removeVehicle(String s) {
+		VehicleUniverse.removeSpecifiedVehicle(s);
 	}
 }

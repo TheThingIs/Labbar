@@ -2,18 +2,19 @@ package model;
 
 import java.util.ArrayList;
 
-public class CarLoader<T extends Car> implements IFlatbedAngle, ILoadCar<T>, ILoadGarage<T>, ILoadCarTruck, ILoadCarFerry {
+public class CarLoader<T extends Car>
+		implements IFlatbedAngle, ILoadCar<T>, ILoadGarage<T>, ILoadCarTruck, ILoadCarFerry {
 
-	private ArrayList<T> carLoaded;
-	private int carMaxCapacity;
-	private Flatbed flatbed;
+	private final ArrayList<T> carLoaded; // an array of the Vehicles in the carloader
+	private final int carMaxCapacity; // the max capacity of the carloader
+	private Flatbed flatbed; // a flatbed to load the vehicles
 
 	/**
 	 * Describes how the car loader works for trucks
 	 * 
 	 * @param maxCapacity the max car capacity on the car loader
 	 */
-	public CarLoader(int maxCapacity) {
+	protected CarLoader(int maxCapacity) {
 		flatbed = new Flatbed();
 		carLoaded = new ArrayList<T>();
 		carMaxCapacity = maxCapacity;
@@ -25,7 +26,7 @@ public class CarLoader<T extends Car> implements IFlatbedAngle, ILoadCar<T>, ILo
 	 * @param maxCapacity the max car capacity on the car loader
 	 * @param modelName   Specifiecs the specialities of the garage
 	 */
-	public CarLoader(int maxCapacity, CarGarage<T> t) {
+	protected CarLoader(int maxCapacity, CarGarage<T> t) {
 		carMaxCapacity = maxCapacity;
 		carLoaded = new ArrayList<T>();
 	}

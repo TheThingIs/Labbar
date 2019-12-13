@@ -9,8 +9,8 @@ public class Stena extends Vehicle implements IFlatbedAngle, ILoadCar<Car>, ILoa
 	/**
 	 * Creates a Stena
 	 */
-	public Stena() {
-		super(0, 90, Color.white, "Stena");
+	protected Stena() {
+		super(0, 90, Color.white, "Stena", 100, 60);
 		carloader = new CarLoader<Car>(84);
 	}
 

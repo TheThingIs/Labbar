@@ -1,9 +1,11 @@
 package model;
 
 import java.awt.*;
+import java.util.ArrayList;
 
-public abstract class Vehicle implements Movable, ISpeed {
+public abstract class Vehicle implements Movable, ISpeed, IVehicleObserver {
 
+	private final static ArrayList<IVehicleObserver> observers = new ArrayList<>();
 	private double angle; // Angle the car is facing
 	private double positionX; // Position in Y-direction
 	private double positionY; // Position in X-direction
@@ -12,8 +14,8 @@ public abstract class Vehicle implements Movable, ISpeed {
 	private double currentSpeed; // The current speed of the car
 	private Color color; // Color of the car
 	private final String modelName; // The car model name
-	private int imageWidth;
-	private int imageHeight;
+	private int imageWidth; // the Width of the image
+	private int imageHeight; // the Height of the image
 
 	/**
 	 * Representation of a Vehicle
@@ -25,7 +27,7 @@ public abstract class Vehicle implements Movable, ISpeed {
 	 * @param imageWidth  the width of the image
 	 * @param imageHeight the height of the image
 	 */
-	public Vehicle(int nrDoors, double enginePower, Color color, String modelName, int imageWidth, int imageHeight) {
+	protected Vehicle(int nrDoors, double enginePower, Color color, String modelName, int imageWidth, int imageHeight) {
 		this.setAngle(0);
 		this.nrDoors = nrDoors;
 		this.color = color;
@@ -44,7 +46,7 @@ public abstract class Vehicle implements Movable, ISpeed {
 	 * @param color       the color of the car
 	 * @param modelName   the cars model name
 	 */
-	public Vehicle(int nrDoors, double enginePower, Color color, String modelName) {
+	protected Vehicle(int nrDoors, double enginePower, Color color, String modelName) {
 		this.setAngle(0);
 		this.nrDoors = nrDoors;
 		this.color = color;
@@ -211,6 +213,7 @@ public abstract class Vehicle implements Movable, ISpeed {
 		this.positionX = this.getPositionX() + Math.cos(Math.toRadians(this.getAngle())) * this.getCurrentSpeed();
 		this.positionY = this.getPositionY() + Math.sin(Math.toRadians(this.getAngle())) * this.getCurrentSpeed();
 		checkIfAgainstWall();
+		notifyObservers();
 	}
 
 	@Override
@@ -261,8 +264,8 @@ public abstract class Vehicle implements Movable, ISpeed {
 	 * Corrects the position of the Vehicle
 	 */
 	private void againstWall() {
-		if (positionX >= 800 - imageWidth) {
-			positionX = 790 - imageWidth;
+		if (positionX >= 1000 - imageWidth) {
+			positionX = 990 - imageWidth;
 		} else if (positionX < 0) {
 			positionX = 0;
 		}
@@ -274,9 +277,8 @@ public abstract class Vehicle implements Movable, ISpeed {
 	 */
 	private void checkIfAgainstWall() {
 		int x = (int) Math.round(getPositionX());
-		// int y = (int) Math.round(getPositionY());
 		if (getCurrentSpeed() != 0
-				&& ((x > 800 - getImageWidth() && getAngle() < 180) || (x < 0 && getAngle() >= 180))) {
+				&& ((x > 1000 - getImageWidth() && getAngle() < 180) || (x < 0 && getAngle() >= 180))) {
 			double d = getCurrentSpeed();
 			stopEngine();
 			againstWall();
@@ -284,9 +286,30 @@ public abstract class Vehicle implements Movable, ISpeed {
 				turnLeft();
 			}
 			currentSpeed = d;
-
 		}
+	}
+	
+	/**
+	 * Adds an Observer
+	 * @param o the Observer to add
+	 */
+	public static void addObserver(IVehicleObserver o) {
+		observers.add(o);
+	}
+	
+	/**
+	 * Removes an Observer
+	 * @param o the Oberserver to remove
+	 */
+	public static void removeObserver(IVehicleObserver o) {
+		observers.remove(o);
+	}
 
+	@Override
+	public void notifyObservers() {
+		for (IVehicleObserver iVehicleObserver : observers) {
+			iVehicleObserver.notifyObservers();
+		}
 	}
 
 }

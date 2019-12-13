@@ -2,8 +2,8 @@ package controller;
 
 import javax.swing.Timer;
 
+import model.Vehicle;
 import view.CarView;
-import view.TimerListener;
 
 public class App {
 
@@ -12,7 +12,7 @@ public class App {
 	// The timer is started with an listener (see below) that executes the
 	// statements
 	// each step between delays.
-	private Timer timer;
+	private final Timer timer;
 
 	public static void main(String[] args) {
 
@@ -28,7 +28,10 @@ public class App {
 		// Start a new view and send a reference of self
 		CarView frame = new CarView("CarSim 1.0", cc);
 
-		timer = new Timer(delay, new TimerListener(frame));
+		timer = new Timer(delay, new TimerListener());
+
+		Vehicle.addObserver(frame.sp);
+		Vehicle.addObserver(frame.drawPanel);
 
 		// Start the timer
 		timer.start();

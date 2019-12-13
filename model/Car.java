@@ -6,11 +6,20 @@ public abstract class Car extends Vehicle {
 
 	private boolean isOnLoader; // If this car is on a carloader
 
-	public Car(int nrDoors, double enginePower, Color color, String modelName) {
+	protected Car(int nrDoors, double enginePower, Color color, String modelName) {
 		super(nrDoors, enginePower, color, modelName);
 	}
-
-	public Car(int nrDoors, double enginePower, Color color, String modelName, int imageWidth, int imageHeight) {
+	/**
+	 * Representation of a Car
+	 * 
+	 * @param nrDoors     number of doors on the car
+	 * @param enginePower the power of the engine of the car
+	 * @param color       the color of the car
+	 * @param modelName   the cars model name
+	 * @param imageWidth  the width of the image
+	 * @param imageHeight the height of the image
+	 */
+	protected Car(int nrDoors, double enginePower, Color color, String modelName, int imageWidth, int imageHeight) {
 		super(nrDoors, enginePower, color, modelName, imageWidth, imageHeight);
 	}
 
@@ -23,14 +32,14 @@ public abstract class Car extends Vehicle {
 	}
 
 	/**
-	 * This car is on a carloade
+	 * This car is on a carloader
 	 */
 	public void isOnLoader() {
 		this.isOnLoader = true;
 	}
 
 	/**
-	 * This car is not a carloade
+	 * This car is not a carloader
 	 */
 	public void isNotOnLoader() {
 		this.isOnLoader = false;

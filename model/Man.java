@@ -4,13 +4,13 @@ import java.awt.Color;
 
 public class Man extends Vehicle implements IFlatbedAngle, ILoadCar<Car>, ILoadCarTruck {
 
-	private CarLoader<Car> carloader;
+	private final CarLoader<Car> carloader;
 
 	/**
 	 * Creates a Man
 	 */
-	public Man() {
-		super(2, 70, Color.WHITE, "Man");
+	protected Man() {
+		super(2, 70, Color.WHITE, "Man", 100, 60);
 		carloader = new CarLoader<Car>(6);
 	}
 
